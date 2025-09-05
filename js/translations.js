@@ -185,15 +185,15 @@ const translations = {
 };
 
 // Current language state
-export let currentLanguage = 'ar';
+let currentLanguage = 'ar';
 
 // Translation function
-export function t(key) {
+function t(key) {
     return translations[currentLanguage][key] || key;
 }
 
 // Update all translatable elements
-export function updateTranslations() {
+function updateTranslations() {
     // Update document attributes
     document.documentElement.lang = currentLanguage;
     document.documentElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
@@ -356,3 +356,36 @@ function getTranslationKey(className) {
     
     return keyMap[className];
 }
+
+// Optimized language toggle function
+export function toggleLanguage() {
+    currentLanguage = currentLanguage === 'ar' ? 'en' : 'ar';
+    updateTranslations();
+    
+    // Save language preference
+    localStorage.setItem('wasla-language', currentLanguage);
+    
+    // Trigger custom event for other components
+    window.dispatchEvent(new CustomEvent('languageChanged', { 
+        detail: { language: currentLanguage } 
+    }));
+}
+
+// Initialize language from localStorage or default to Arabic
+function initializeLanguage() {
+    const savedLanguage = localStorage.getItem('wasla-language');
+    if (savedLanguage && (savedLanguage === 'ar' || savedLanguage === 'en')) {
+        currentLanguage = savedLanguage;
+    }
+    updateTranslations();
+}
+
+// Initialize when DOM is loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeLanguage);
+} else {
+    initializeLanguage();
+}
+
+// Export for use in other modules
+export { t, currentLanguage, updateTranslations };

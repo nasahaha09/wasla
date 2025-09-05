@@ -6,6 +6,7 @@ import {
   voteOnRoute, 
   recordRouteSearch 
 } from './supabase.js';
+import { currentLanguage, t, updateTranslations, toggleLanguage } from './translations.js';
 
 // Performance optimizations
 let debounceTimer = null;

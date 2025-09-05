@@ -6,6 +6,7 @@ import {
   getCurrentUser, 
   updateUserCredits 
 } from './supabase.js';
+import { currentLanguage, t } from './translations.js';
 
 // Performance: Cache DOM elements
 const domCache = new Map();
