@@ -537,21 +537,34 @@ function updateStopsContent() {
 }
 
 // Optimized language toggle function
-function toggleLanguage() {
-    currentLanguage = currentLanguage === 'ar' ? 'en' : 'ar';
-    
+// Language change event listener
+function handleLanguageChange() {
     // Clear caches when language changes
     cachedStops = null;
     cachedRoutes = null;
     cachedPackages = null;
-    
-    updateTranslations();
     
     // Reload dynamic content
     loadImportantStops();
     loadUserRoutes();
     loadCreditPackages();
 }
+
+// Make functions globally accessible for inline onclick handlers
+window.showPage = showPage;
+window.toggleMobileMenu = toggleMobileMenu;
+window.sendMessage = sendMessage;
+window.searchRoutes = searchRoutes;
+window.showStopDetails = showStopDetails;
+window.loadUserRoutes = loadUserRoutes;
+window.showAddRouteModal = showAddRouteModal;
+window.hideAddRouteModal = hideAddRouteModal;
+window.submitUserRoute = submitUserRoute;
+window.voteOnUserRoute = voteOnUserRoute;
+window.loadCreditPackages = loadCreditPackages;
+window.purchaseCredits = purchaseCredits;
+// Add event listener for language changes
+document.addEventListener('languageChanged', handleLanguageChange);
 
 // ChatBot functions
 function sendMessage() {

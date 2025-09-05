@@ -27,6 +27,18 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeAuth();
 });
 
+// Make functions globally accessible for inline onclick handlers
+window.selectCountry = selectCountry;
+window.showAuthModal = showAuthModal;
+window.hideAuthModal = hideAuthModal;
+window.switchAuthTab = switchAuthTab;
+window.handleSignup = handleSignup;
+window.handleLogin = handleLogin;
+window.logout = logout;
+window.checkAuthAndNavigate = checkAuthAndNavigate;
+window.showFeatureLockedModal = showFeatureLockedModal;
+window.hideFeatureLockedModal = hideFeatureLockedModal;
+
 async function initializeAuth() {
     try {
         const { data: user, error } = await getCurrentUser();
@@ -414,4 +426,3 @@ document.addEventListener('DOMContentLoaded', function() {
     if (selectedCountry === 'egypt') {
         document.getElementById('country-selection').classList.add('hidden');
     }
-});
