@@ -870,33 +870,3 @@ function getModeColor_old(mode) {
     };
     return modeColors[mode] || 'bg-gray-100 text-gray-800';
 }
-
-
-    
-    const stops = [
-        {
-            id: 'ramses',
-            name: currentLanguage === 'ar' ? 'محطة رمسيس' : 'Ramses Station',
-            nameSecondary: currentLanguage === 'ar' ? 'Ramses Station' : 'محطة رمسيس',
-            description: currentLanguage === 'ar' 
-                ? 'محور السكك الحديدية والمترو الرئيسي الذي يربط القاهرة ببقية مصر'
-                : 'Major railway and metro hub connecting Cairo with rest of Egypt',
-            connections: currentLanguage === 'ar' 
-                ? ['مترو الخط 2', 'السكك الحديدية الوطنية', '50+ خط أتوبيس']
-                : ['Metro Line 2', 'National Railway', '50+ Bus Lines'],
-            imageUrl: 'https://images.pexels.com/photos/2935687/pexels-photo-2935687.jpeg',
-            routes: 75,
-            isMetroStation: true,
-        },
-        {
-            id: 'tahrir',
-            name: currentLanguage === 'ar' ? 'ميدان التحرير' : 'Tahrir Square',
-            nameSecondary: currentLanguage === 'ar' ? 'Tahrir Square' : 'ميدان التحرير',
-            description: currentLanguage === 'ar'
-                ? 'الميدان التاريخي المركزي مع شبكات واسعة من الأتوبيسات والميكروباصات'
-                : 'Historic central square with extensive bus and microbus networks',
-            connections: currentLanguage === 'ar'
-                ? ['مترو الخط 2', '30+ خط أتوبيس', '20+ خط ميكروباص']
-                : ['Metro Line 2', '30+ Bus Lines', '20+ Microbus Lines'],
-            imageUrl: 'https://images.pexels.com/photos/2363807/pexels-photo-2363807.jpeg',
-            routes
