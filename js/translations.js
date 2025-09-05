@@ -185,15 +185,15 @@ const translations = {
 };
 
 // Current language state
-let currentLanguage = 'ar';
+export let currentLanguage = 'ar';
 
 // Translation function
-function t(key) {
+export function t(key) {
     return translations[currentLanguage][key] || key;
 }
 
 // Update all translatable elements
-function updateTranslations() {
+export function updateTranslations() {
     // Update document attributes
     document.documentElement.lang = currentLanguage;
     document.documentElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
