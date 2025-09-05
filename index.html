@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>وصلة - تنقل في مصر بسهولة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Country Selection Modal -->
+    <div id="country-selection" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+            <div class="text-center">
+                <div class="mb-6">
+                    <svg class="h-16 w-16 text-yellow-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2 welcome-to-wasla">مرحباً بك في وصلة</h2>
+                    <p class="text-gray-600 which-country">أي دولة تريد معرفة طرق المواصلات فيها؟</p>
+                </div>
+                <div class="space-y-3">
+                    <button onclick="selectCountry('egypt')" class="w-full bg-yellow-600 text-white py-3 px-4 rounded-lg hover:bg-yellow-700 transition-colors flex items-center justify-center">
+                        <span class="text-lg font-medium egypt-text">مصر</span>
+                        <span class="ml-2 text-2xl">🇪🇬</span>
+                    </button>
+                    <button onclick="selectCountry('other')" class="w-full bg-gray-200 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-300 transition-colors">
+                        <span class="other-countries">دول أخرى</span>
+                        <span class="text-sm text-gray-500 block">(قريباً)</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <svg class="h-8 w-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-1.447-.894L15 4m0 13V4m-6 3l6-3"></path>
+                        </svg>
+                        <span class="ml-2 text-xl font-bold text-gray-900">وصلة</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#" onclick="showPage('home')" class="nav-link" data-page="home">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                            </svg>
+                            <span class="nav-text">الرئيسية</span>
+                        </a>
+                        <a href="#" onclick="checkAuthAndNavigate('chatbot')" class="nav-link" data-page="chatbot">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                            <span class="nav-text">المساعد الذكي</span>
+                        </a>
+                        <a href="#" onclick="checkAuthAndNavigate('search')" class="nav-link" data-page="search">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                            <span class="nav-text">البحث</span>
+                        </a>
+                        <a href="#" onclick="showPage('importantStops')" class="nav-link" data-page="importantStops">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span class="nav-text">المحطات المهمة</span>
+                        </a>
+                        <a href="#" onclick="checkAuthAndNavigate('userRoutes')" class="nav-link" data-page="userRoutes">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                            </svg>
+                            <span class="nav-text">طرق المستخدمين</span>
+                        </a>
+                        <a href="#" onclick="checkAuthAndNavigate('credits')" class="nav-link" data-page="credits">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                            </svg>
+                            <span class="nav-text">الرصيد</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Desktop Right Side -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <!-- Country Button -->
+                    <button onclick="showCountrySelection()" class="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 transition-colors">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span class="country-text">مصر</span>
+                    </button>
+
+                    <!-- Language Toggle -->
+                    <button onclick="toggleLanguage()" class="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 transition-colors">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+                        </svg>
+                        <span class="language-text">English</span>
+                    </button>
+
+                    <!-- Auth Button -->
+                    <button id="auth-button" onclick="showAuthModal()" class="bg-yellow-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-700 transition-colors">
+                        <span class="create-account">إنشاء حساب</span>
+                    </button>
+
+                    <!-- User Menu -->
+                    <div id="user-menu" class="hidden flex items-center space-x-3">
+                        <div class="flex items-center space-x-2 text-sm text-gray-600">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                            </svg>
+                            <span id="user-credits">0</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 bg-yellow-600 text-white rounded-full flex items-center justify-center text-sm font-medium">
+                                <span id="user-initials">U</span>
+                            </div>
+                            <span id="user-name" class="text-sm font-medium text-gray-900">User</span>
+                        </div>
+                        <button onclick="logout()" class="text-sm text-gray-500 hover:text-gray-700">
+                            <span class="logout-text">تسجيل الخروج</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button onclick="toggleMobileMenu()" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                        <svg id="menu-icon" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <svg id="close-icon" class="h-6 w-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-200">
+                <a href="#" onclick="showPage('home'); toggleMobileMenu();" class="mobile-nav-link" data-page="home">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    <span class="mobile-nav-text">الرئيسية</span>
+                </a>
+                <a href="#" onclick="checkAuthAndNavigate('chatbot'); toggleMobileMenu();" class="mobile-nav-link" data-page="chatbot">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                    </svg>
+                    <span class="mobile-nav-text">المساعد الذكي</span>
+                </a>
+                <a href="#" onclick="checkAuthAndNavigate('search'); toggleMobileMenu();" class="mobile-nav-link" data-page="search">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <span class="mobile-nav-text">البحث</span>
+                </a>
+                <a href="#" onclick="showPage('importantStops'); toggleMobileMenu();" class="mobile-nav-link" data-page="importantStops">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <span class="mobile-nav-text">المحطات المهمة</span>
+                </a>
+                <a href="#" onclick="checkAuthAndNavigate('userRoutes'); toggleMobileMenu();" class="mobile-nav-link" data-page="userRoutes">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                    </svg>
+                    <span class="mobile-nav-text">طرق المستخدمين</span>
+                </a>
+                <a href="#" onclick="checkAuthAndNavigate('credits'); toggleMobileMenu();" class="mobile-nav-link" data-page="credits">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                    </svg>
+                    <span class="mobile-nav-text">الرصيد</span>
+                </a>
+
+                <!-- Mobile Controls -->
+                <div class="border-t border-gray-200 pt-3 mt-3">
+                    <!-- Country Button -->
+                    <button onclick="showCountrySelection(); toggleMobileMenu();" class="w-full flex items-center space-x-3 px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span class="mobile-country-text">مصر</span>
+                    </button>
+
+                    <!-- Language Toggle -->
+                    <button onclick="toggleLanguage()" class="w-full flex items-center space-x-3 px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-yellow-600 hover:bg-yellow-50">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+                        </svg>
+                        <span class="mobile-language-text">English</span>
+                    </button>
+
+                    <!-- Mobile Auth Button -->
+                    <button id="mobile-auth-button" onclick="showAuthModal(); toggleMobileMenu();" class="w-full bg-yellow-600 text-white px-4 py-2 rounded-md text-base font-medium hover:bg-yellow-700 transition-colors mt-2">
+                        <span class="create-account">إنشاء حساب</span>
+                    </button>
+
+                    <!-- Mobile User Menu -->
+                    <div id="mobile-user-menu" class="hidden mt-2">
+                        <div class="flex items-center justify-between px-3 py-2 bg-gray-50 rounded-md">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-8 h-8 bg-yellow-600 text-white rounded-full flex items-center justify-center text-sm font-medium">
+                                    <span id="mobile-user-initials">U</span>
+                                </div>
+                                <div>
+                                    <div id="mobile-user-name" class="text-sm font-medium text-gray-900">User</div>
+                                    <div class="flex items-center text-xs text-gray-500">
+                                        <svg class="h-3 w-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                                        </svg>
+                                        <span id="mobile-user-credits">0</span> رصيد
+                                    </div>
+                                </div>
+                            </div>
+                            <button onclick="logout(); toggleMobileMenu();" class="text-sm text-gray-500 hover:text-gray-700">
+                                <span class="logout-text">خروج</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Home Page -->
+        <div id="home-page" class="page active">
+            <!-- Hero Section -->
+            <div class="text-center mb-16">
+                <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+                    <span class="hero-title">تنقل في </span>
+                    <span class="hero-egypt text-yellow-600">مصر</span>
+                    <span> بسهولة</span>
+                </h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8 hero-subtitle">
+                    دليلك الشامل للمواصلات في مصر. مترو، أتوبيسات، ميكروباصات - كلها في منصة ذكية واحدة مدعومة بمعرفة المجتمع.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="checkAuthAndNavigate('chatbot')" class="bg-yellow-600 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-yellow-700 transition-colors">
+                        <span class="ask-chatbot-text">اسأل المساعد الذكي</span>
+                    </button>
+                    <button onclick="checkAuthAndNavigate('search')" class="border border-yellow-600 text-yellow-600 px-8 py-3 rounded-lg text-lg font-medium hover:bg-yellow-50 transition-colors">
+                        <span class="search-routes-text">ابحث عن الطرق</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                <div class="feature-card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300" onclick="checkAuthAndNavigate('chatbot')">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2 feature-title">المساعد الذكي</h3>
+                    <p class="text-gray-600 text-sm mb-4 feature-desc">اسأل بلغة طبيعية: "أنا في مدينة نصر وأريد الذهاب إلى مدينة 6 أكتوبر"</p>
+                    <span class="text-yellow-600 text-sm font-medium explore-text">استكشف →</span>
+                </div>
+
+                <div class="feature-card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300" onclick="checkAuthAndNavigate('search')">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2 feature-title">البحث اليدوي</h3>
+                    <p class="text-gray-600 text-sm mb-4 feature-desc">ابحث عن الطرق يدوياً مع عرض الخريطة</p>
+                    <span class="text-yellow-600 text-sm font-medium explore-text">استكشف →</span>
+                </div>
+
+                <div class="feature-card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300" onclick="showPage('importantStops')">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="h-6 w-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2 feature-title">المحطات المهمة</h3>
+                    <p class="text-gray-600 text-sm mb-4 feature-desc">استكشف المحاور الرئيسية مثل رمسيس وعبود والمنيب</p>
+                    <span class="text-yellow-600 text-sm font-medium explore-text">استكشف →</span>
+                </div>
+
+                <div class="feature-card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300" onclick="checkAuthAndNavigate('userRoutes')">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="h-6 w-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2 feature-title">طرق المجتمع</h3>
+                    <p class="text-gray-600 text-sm mb-4 feature-desc">أضف طرق جديدة، صوت، وساعد في تحسين الشبكة</p>
+                    <span class="text-yellow-600 text-sm font-medium explore-text">استكشف →</span>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="bg-white rounded-xl shadow-lg p-8 mb-16">
+                <h2 class="text-2xl font-bold text-gray-900 text-center mb-8 network-title">شبكة المواصلات</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-blue-600 mb-2">3</div>
+                        <div class="text-gray-600 stat-label">خطوط المترو</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-green-600 mb-2">500+</div>
+                        <div class="text-gray-600 stat-label">خطوط الأتوبيس</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-purple-600 mb-2">1000+</div>
+                        <div class="text-gray-600 stat-label">خطوط الميكروباص</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-orange-600 mb-2">50+</div>
+                        <div class="text-gray-600 stat-label">المحطات الرئيسية</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ChatBot Page -->
+        <div id="chatbot-page" class="page">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-4 chatbot-title">مساعد وصلة</h1>
+                    <p class="text-gray-600 chatbot-subtitle">اسألني أي شيء عن التنقل في مصر!</p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <!-- Chat Messages -->
+                    <div id="chat-messages" class="h-96 overflow-y-auto p-6 space-y-4">
+                        <div class="chat-message bot">
+                            <div class="message-bubble bot">
+                                <p class="text-sm initial-message">اسألني أي شيء عن التنقل في مصر!</p>
+                                <div class="text-xs opacity-70 mt-1" id="initial-time">12:00 PM</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Input -->
+                    <div class="border-t border-gray-200 p-4">
+                        <div class="flex space-x-4">
+                            <input
+                                type="text"
+                                id="chat-input"
+                                placeholder="اسأل عن الطرق... مثل: 'من مصر الجديدة إلى وسط البلد'"
+                                class="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                            />
+                            <button
+                                onclick="sendMessage()"
+                                class="bg-yellow-600 text-white px-6 py-2 rounded-lg hover:bg-yellow-700 transition-colors"
+                            >
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2 chat-hint">اضغط Enter للإرسال</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Page -->
+        <div id="search-page" class="page">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-4 search-title">مخطط الرحلات</h1>
+                    <p class="text-gray-600 search-subtitle">خطط رحلتك عبر مصر مع توجيهات مفصلة خطوة بخطوة.</p>
+                </div>
+
+                <!-- Search Form -->
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                    <div class="grid md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2 from-label">من</label>
+                            <input
+                                type="text"
+                                id="origin-input"
+                                placeholder="أدخل نقطة البداية"
+                                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                            />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2 to-label">إلى</label>
+                            <input
+                                type="text"
+                                id="destination-input"
+                                placeholder="أدخل الوجهة"
+                                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                            />
+                        </div>
+                    </div>
+                    <button
+                        onclick="searchRoutes()"
+                        class="w-full bg-yellow-600 text-white py-3 rounded-lg font-medium hover:bg-yellow-700 transition-colors"
+                    >
+                        <span class="find-routes-text">ابحث عن الطرق</span>
+                    </button>
+                </div>
+
+                <!-- Results -->
+                <div id="search-results" class="hidden">
+                    <div class="grid lg:grid-cols-2 gap-8">
+                        <!-- Map -->
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4 map-title">خريطة الطريق</h3>
+                            <div class="h-64 bg-gray-100 rounded-lg flex items-center justify-center">
+                                <p class="text-gray-500 map-placeholder">خريطة تفاعلية قريباً</p>
+                            </div>
+                        </div>
+
+                        <!-- Route Options -->
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4 route-options-title">خيارات الطرق</h3>
+                            <div id="results-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Important Stops Page -->
+        <div id="importantStops-page" class="page">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-gray-900 mb-4 stops-title">المحطات المهمة للمواصلات</h1>
+                <p class="text-gray-600 stops-subtitle">استكشف محاور المواصلات الرئيسية في مصر مع معلومات مفصلة عن الطرق والاتصالات.</p>
+            </div>
+
+            <div id="stops-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Stops will be loaded dynamically -->
+            </div>
+        </div>
+
+        <!-- User Routes Page -->
+        <div id="userRoutes-page" class="page">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-gray-900 mb-4 user-routes-title">طرق المجتمع</h1>
+                <p class="text-gray-600 user-routes-subtitle">ساعد في تحسين شبكة المواصلات في مصر من خلال مشاركة الطرق والتصويت على المساهمات.</p>
+            </div>
+
+            <div class="mb-8">
+                <button onclick="showAddRouteModal()" class="bg-yellow-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-yellow-700 transition-colors">
+                    <span class="add-route-text">أضف طريق</span>
+                </button>
+            </div>
+
+            <div id="user-routes-container" class="space-y-6">
+                <!-- User routes will be loaded dynamically -->
+            </div>
+        </div>
+
+        <!-- Credits Page -->
+        <div id="credits-page" class="page">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-4 credits-title">الرصيد والفواتير</h1>
+                    <p class="text-gray-600 credits-subtitle">إدارة الاستخدام وشراء الرصيد للوصول غير المحدود لطرق المواصلات.</p>
+                </div>
+
+                <!-- Current Balance -->
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4 balance-title">الرصيد الحالي</h2>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mr-4">
+                                <svg class="h-6 w-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold text-gray-900">
+                                    <span id="balance-credits">0</span> <span class="credits-text">رصيد</span>
+                                </div>
+                                <p class="text-gray-600 text-sm usage-info">كل بحث أو استعلام للمساعد الذكي يستخدم رصيد واحد</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Purchase Credits -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-6 purchase-title">شراء الرصيد</h2>
+                    <div id="credit-packages" class="grid md:grid-cols-3 gap-6">
+                        <!-- Credit packages will be loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="flex items-center justify-center mb-4">
+                    <svg class="h-8 w-8 text-yellow-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-1.447-.894L15 4m0 13V4m-6 3l6-3"></path>
+                    </svg>
+                    <span class="text-2xl font-bold">وصلة</span>
+                </div>
+                <p class="text-gray-400 footer-text">ربط كل مصر، طريق واحد في كل مرة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Authentication Modal -->
+    <div id="auth-modal" class="modal hidden">
+        <div class="bg-white rounded-lg max-w-md w-full">
+            <!-- Modal Header -->
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 id="auth-modal-title" class="text-xl font-bold text-gray-900">إنشاء حساب جديد</h2>
+                    <button onclick="hideAuthModal()" class="text-gray-400 hover:text-gray-600">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <p id="auth-modal-subtitle" class="text-gray-600">انضم إلى مجتمع وصلة واحصل على رصيد مجاني!</p>
+            </div>
+
+            <!-- Auth Tabs -->
+            <div class="flex border-b border-gray-200">
+                <button id="signup-tab" onclick="switchAuthTab('signup')" class="flex-1 py-3 px-4 text-center font-medium auth-tab active">
+                    إنشاء حساب
+                </button>
+                <button id="login-tab" onclick="switchAuthTab('login')" class="flex-1 py-3 px-4 text-center font-medium auth-tab">
+                    تسجيل الدخول
+                </button>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signup-form" class="auth-form active p-6">
+                <form onsubmit="handleSignup(); return false;">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1 full-name">الاسم الكامل</label>
+                            <input type="text" id="signup-name" required class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1 email-label">البريد الإلكتروني</label>
+                            <input type="email" id="signup-email" required class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1 password-label">كلمة المرور</label>
+                            <input type="password" id="signup-password" required class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1 preferred-currency">العملة المفضلة</label>
+                            <select id="signup-currency" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                                <option value="EGP">جنيه مصري (EGP)</option>
+                                <option value="USD">دولار أمريكي (USD)</option>
+                                <option value="EUR">يورو (EUR)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full bg-yellow-600 text-white py-2 rounded-lg font-medium hover:bg-yellow-700 transition-colors create-account-with-credits">
+                            إنشاء حساب + 10 رصيد مجاني
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Login Form -->
+            <div id="login-form" class="auth-form p-6">
+                <form onsubmit="handleLogin(); return false;">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1 email-label">البريد الإلكتروني</label>
+                            <input type="email" id="login-email" required class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1 password-label">كلمة المرور</label>
+                            <input type="password" id="login-password" required class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                        </div>
+                        <button type="submit" class="w-full bg-yellow-600 text-white py-2 rounded-lg font-medium hover:bg-yellow-700 transition-colors sign-in">
+                            تسجيل الدخول
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feature Locked Modal -->
+    <div id="feature-locked-modal" class="modal hidden">
+        <div class="bg-white rounded-lg max-w-md w-full p-6">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="h-8 w-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2 login-required">تسجيل الدخول مطلوب</h3>
+                <p class="text-gray-600 mb-6 login-required-desc">يجب إنشاء حساب أو تسجيل الدخول لاستخدام هذه الميزة</p>
+                <div class="flex space-x-3">
+                    <button onclick="hideFeatureLockedModal(); showAuthModal();" class="flex-1 bg-yellow-600 text-white py-2 rounded-lg font-medium hover:bg-yellow-700 transition-colors create-account">
+                        إنشاء حساب
+                    </button>
+                    <button onclick="hideFeatureLockedModal()" class="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors cancel-text">
+                        إلغاء
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Route Modal -->
+    <div id="add-route-modal" class="modal hidden">
+        <div class="bg-white rounded-lg max-w-md w-full p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-gray-900 modal-title">أضف طريق جديد</h3>
+                <button onclick="hideAddRouteModal()" class="text-gray-400 hover:text-gray-600">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <form onsubmit="submitUserRoute(); return false;">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1 route-name-label">اسم الطريق</label>
+                        <input type="text" id="route-name" required class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1 from-modal-label">من</label>
+                        <input type="text" id="route-from" required class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1 to-modal-label">إلى</label>
+                        <input type="text" id="route-to" required class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">الوصف</label>
+                        <textarea id="route-description" rows="3" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"></textarea>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button type="submit" class="flex-1 bg-yellow-600 text-white py-2 rounded-lg font-medium hover:bg-yellow-700 transition-colors submit-text">
+                            إرسال الطريق
+                        </button>
+                        <button type="button" onclick="hideAddRouteModal()" class="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors cancel-text">
+                            إلغاء
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/translations.js"></script>
+    <script type="module" src="js/supabase.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

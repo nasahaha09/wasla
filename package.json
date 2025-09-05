@@ -1,0 +1,19 @@
+{
+  "name": "wasla",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "npx http-server . -p 5173 -o",
+    "build": "echo 'No build step needed for vanilla HTML/CSS/JS'",
+    "preview": "npx http-server . -p 4173 -o",
+    "deploy": "gh-pages -d ."
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0",
+    "http-server": "^14.1.1"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.57.0"
+  }
+}
